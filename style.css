@@ -1,3 +1,10 @@
+:root {
+  --bg: #0f0f0f;
+  --fg: #ffffff;
+  --accent: #6f00ff;
+  --secondary: #1e1e1e;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -6,92 +13,104 @@
 
 body {
   font-family: 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--fg);
   line-height: 1.6;
-  background: #f9f9f9;
-  color: #333;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
 }
 
 header {
-  background: #222;
-  color: #fff;
-  padding: 1rem 0;
+  background: var(--secondary);
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: 999;
+  padding: 1rem 0;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.5);
 }
 
-nav {
-  width: 90%;
-  margin: auto;
+.nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-nav h1 {
-  font-size: 1.5rem;
-}
-
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 .nav-links a {
-  color: white;
+  color: var(--fg);
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .nav-links a:hover {
-  color: #f39c12;
-}
-
-section {
-  padding: 60px 20px;
-  max-width: 1000px;
-  margin: auto;
+  color: var(--accent);
 }
 
 .hero {
   text-align: center;
   padding: 100px 20px;
-  background: linear-gradient(135deg, #6e8efb, #a777e3);
+  background: linear-gradient(135deg, #1f0033, #3d0071);
   color: white;
-  border-radius: 12px;
 }
 
-.hero h2 {
-  font-size: 2.5rem;
+.hero h2 span {
+  color: var(--accent);
 }
 
-.hero .btn {
+.btn {
   display: inline-block;
   margin-top: 20px;
-  background: #fff;
-  color: #333;
   padding: 10px 20px;
-  border-radius: 5px;
+  background: var(--accent);
+  color: white;
   text-decoration: none;
+  border-radius: 5px;
+  transition: background 0.3s ease;
 }
 
-.projects-container {
+.btn:hover {
+  background: #4a00a8;
+}
+
+.section {
+  padding: 60px 20px;
+}
+
+.dark {
+  background: var(--secondary);
+}
+
+.skills-grid, .projects-grid {
   display: grid;
-  gap: 20px;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  margin-top: 2rem;
 }
 
-.project-card {
-  background: white;
+.skill-card, .project-card {
+  background: #191919;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.skill-card:hover, .project-card:hover {
+  transform: scale(1.05);
+  background: #282828;
 }
 
 footer {
   text-align: center;
+  background: var(--secondary);
   padding: 20px;
-  background: #222;
-  color: white;
 }
+
