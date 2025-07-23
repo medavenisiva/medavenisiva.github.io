@@ -1,3 +1,655 @@
 
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced GitHub Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #0366d6;
+            --secondary-color: #24292e;
+            --accent-color: #28a745;
+            --text-color: #24292e;
+            --light-text: #586069;
+            --bg-color: #f6f8fa;
+            --card-bg: #ffffff;
+            --border-color: #e1e4e8;
+        }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 20px;
+        }
+
+        /* Profile Card */
+        .profile-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 20px;
+            position: sticky;
+            top: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 3px solid var(--primary-color);
+            object-fit: cover;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .avatar:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(3, 102, 214, 0.3);
+        }
+
+        .username {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .bio {
+            color: var(--light-text);
+            margin-bottom: 15px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-count {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--light-text);
+        }
+
+        .profile-links {
+            margin-top: 20px;
+        }
+
+        .link-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .link-item:hover {
+            color: var(--primary-color);
+        }
+
+        .link-icon {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Main Content */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .section {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        /* Repositories */
+        .repo-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+        }
+
+        .repo-card {
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .repo-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .repo-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .repo-name i {
+            margin-right: 8px;
+        }
+
+        .repo-desc {
+            font-size: 14px;
+            color: var(--light-text);
+            margin-bottom: 10px;
+        }
+
+        .repo-meta {
+            display: flex;
+            font-size: 12px;
+            color: var(--light-text);
+            gap: 15px;
+        }
+
+        .repo-meta span {
+            display: flex;
+            align-items: center;
+        }
+
+        .repo-meta i {
+            margin-right: 5px;
+        }
+
+        /* Skills */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-tag {
+            background-color: #f1f8ff;
+            color: var(--primary-color);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            transition: all 0.2s;
+        }
+
+        .skill-tag:hover {
+            background-color: #ddefff;
+            transform: scale(1.05);
+        }
+
+        /* Activity */
+        .activity-timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .activity-timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: var(--border-color);
+        }
+
+        .activity-item {
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .activity-item:last-child {
+            padding-bottom: 0;
+        }
+
+        .activity-dot {
+            position: absolute;
+            left: -30px;
+            top: 5px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 10px;
+        }
+
+        .activity-date {
+            font-size: 12px;
+            color: var(--light-text);
+            margin-bottom: 5px;
+        }
+
+        .activity-content {
+            font-size: 14px;
+        }
+
+        /* Contributions */
+        .contributions-graph {
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+
+        .graph-container {
+            display: inline-block;
+            min-width: 100%;
+        }
+
+        .graph-row {
+            display: flex;
+            margin-bottom: 5px;
+        }
+
+        .graph-day {
+            width: 15px;
+            height: 15px;
+            margin-right: 5px;
+            border-radius: 2px;
+            background-color: #ebedf0;
+            position: relative;
+        }
+
+        .graph-day[data-level="1"] { background-color: #9be9a8; }
+        .graph-day[data-level="2"] { background-color: #40c463; }
+        .graph-day[data-level="3"] { background-color: #30a14e; }
+        .graph-day[data-level="4"] { background-color: #216e39; }
+
+        .graph-day:hover::after {
+            content: attr(data-count) " contributions";
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--text-color);
+            color: white;
+            padding: 3px 6px;
+            border-radius: 3px;
+            font-size: 12px;
+            white-space: nowrap;
+            z-index: 10;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 15px;
+        }
+
+        .tab {
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 14px;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -1px;
+        }
+
+        .tab.active {
+            border-bottom-color: var(--primary-color);
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Dark Mode Toggle */
+        .theme-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-card {
+                position: static;
+            }
+        }
+
+        /* Dark Mode */
+        body.dark-mode {
+            --primary-color: #58a6ff;
+            --secondary-color: #c9d1d9;
+            --accent-color: #238636;
+            --text-color: #c9d1d9;
+            --light-text: #8b949e;
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --border-color: #30363d;
+        }
+
+        .dark-mode .skill-tag {
+            background-color: #1f2937;
+        }
+
+        .dark-mode .graph-day {
+            background-color: #161b22;
+        }
+
+        .dark-mode .graph-day[data-level="1"] { background-color: #0e4429; }
+        .dark-mode .graph-day[data-level="2"] { background-color: #006d32; }
+        .dark-mode .graph-day[data-level="3"] { background-color: #26a641; }
+        .dark-mode .graph-day[data-level="4"] { background-color: #39d353; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Profile Card -->
+        <div class="profile-card">
+            <div class="profile-header">
+                <img src="https://avatars.githubusercontent.com/u/583231?v=4" alt="Profile Avatar" class="avatar">
+                <h1 class="username">octocat</h1>
+                <p class="bio">The official GitHub mascot</p>
+                
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-count" id="repo-count">100</div>
+                        <div class="stat-label">Repositories</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-count" id="follower-count">5000</div>
+                        <div class="stat-label">Followers</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-count" id="following-count">42</div>
+                        <div class="stat-label">Following</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="profile-links">
+                <a href="#" class="link-item">
+                    <i class="fas fa-map-marker-alt link-icon"></i>
+                    <span>San Francisco, CA</span>
+                </a>
+                <a href="#" class="link-item">
+                    <i class="fas fa-link link-icon"></i>
+                    <span>github.com</span>
+                </a>
+                <a href="#" class="link-item">
+                    <i class="fas fa-building link-icon"></i>
+                    <span>@github</span>
+                </a>
+                <a href="#" class="link-item">
+                    <i class="fab fa-twitter link-icon"></i>
+                    <span>@octocat</span>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Tabs Navigation -->
+            <div class="section">
+                <div class="tabs">
+                    <div class="tab active" data-tab="repositories">Repositories</div>
+                    <div class="tab" data-tab="skills">Skills</div>
+                    <div class="tab" data-tab="activity">Activity</div>
+                    <div class="tab" data-tab="contributions">Contributions</div>
+                </div>
+            </div>
+            
+            <!-- Repositories Tab -->
+            <div class="tab-content active" id="repositories-tab">
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Pinned Repositories</h2>
+                    </div>
+                    
+                    <div class="repo-list" id="pinned-repos">
+                        <!-- Pinned repos will be added here by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">All Repositories</h2>
+                    </div>
+                    
+                    <div class="repo-list" id="all-repos">
+                        <!-- All repos will be added here by JavaScript -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Skills Tab -->
+            <div class="tab-content" id="skills-tab">
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Skills & Expertise</h2>
+                    </div>
+                    
+                    <div class="skills-container" id="skills-container">
+                        <!-- Skills will be added here by JavaScript -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Activity Tab -->
+            <div class="tab-content" id="activity-tab">
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Recent Activity</h2>
+                    </div>
+                    
+                    <div class="activity-timeline" id="activity-timeline">
+                        <!-- Activity items will be added here by JavaScript -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contributions Tab -->
+            <div class="tab-content" id="contributions-tab">
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Contributions</h2>
+                    </div>
+                    
+                    <div class="contributions-graph">
+                        <div class="graph-container" id="contributions-graph">
+                            <!-- Contribution graph will be added here by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Theme Toggle -->
+    <div class="theme-toggle" id="theme-toggle">
+        <i class="fas fa-moon"></i>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mock data - in a real app, you would fetch this from GitHub API
+            const mockData = {
+                pinnedRepos: [
+                    {
+                        name: "Hello-World",
+                        description: "My first repository on GitHub!",
+                        language: "JavaScript",
+                        stars: 1500,
+                        forks: 500,
+                        private: false
+                    },
+                    {
+                        name: "Git-Cheat-Sheet",
+                        description: "A collection of git commands and tips",
+                        language: "Markdown",
+                        stars: 800,
+                        forks: 200,
+                        private: false
+                    },
+                    {
+                        name: "Octocat-Sprite",
+                        description: "CSS sprite generator for GitHub's octocat",
+                        language: "CSS",
+                        stars: 450,
+                        forks: 120,
+                        private: false
+                    },
+                    {
+                        name: "GitHub-API-Demo",
+                        description: "Demo application using GitHub API",
+                        language: "Python",
+                        stars: 320,
+                        forks: 80,
+                        private: false
+                    }
+                ],
+                allRepos: [
+                    {
+                        name: "Hello-World",
+                        description: "My first repository on GitHub!",
+                        language: "JavaScript",
+                        stars: 1500,
+                        forks: 500,
+                        private: false
+                    },
+                    {
+                        name: "Git-Cheat-Sheet",
+                        description: "A collection of git commands and tips",
+                        language: "Markdown",
+                        stars: 800,
+                        forks: 200,
+                        private: false
+                    },
+                    {
+                        name: "Octocat-Sprite",
+                        description: "CSS sprite generator for GitHub's octocat",
+                        language: "CSS",
+                        stars: 450,
+                        forks: 120,
+                        private: false
+                    },
+                    {
+                        name: "GitHub-API-Demo",
+                        description: "Demo application using GitHub API",
+                        language: "Python",
+                        stars: 320,
+                        forks: 80,
+                        private: false
+                    },
+                    {
+                        name: "Code-Snippets",
+                        description: "Collection of useful code snippets",
+                        language: "TypeScript",
+                        stars: 280,
+                        forks: 60,
+                        private: false
+                    },
+                    {
+                        name: "Dev-Tools",
+                        description: "Custom development tools and scripts",
+                        language: "Shell",
+                        stars: 180,
+                        forks: 40,
+                        private: false
+                    }
+                ],
+                skills: [
+                    "JavaScript", "Python", "HTML", "CSS", "React", "Node.js", 
+                    "Git", "Docker", "SQL", "TypeScript", "Bash", "Java",
+                    "C++", "Go", "Rust", "AWS", "Azure", "Kubernetes"
+                ],
+                activity: [
+                    {
+                        date: "Today",
+                        content: "Pushed to main in Hello-World repository"
+                    },
+                    {
+                        date: "Yesterday",
+                        content: "Created new repository Dev-Tools"
+                    },
+                    {
+                        
